@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "SG Extention Easier - Akira",
+  "version": "1.1.5",
+  "description": "Tools add module auto. Loop table, update data-placeholder-id {22}",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/icon48.png", "images/replace.png", "images/logo_w.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_scripts": [
+    { 
+      "matches": [
+        "*://fe-alb-qa-815232880.ap-northeast-1.elb.amazonaws.com/sg/settings/themes/*",
+        "*://fe-alb-testing-2007694655.ap-northeast-1.elb.amazonaws.com/sg/settings/themes/*",
+        "*://fe-alb-staging-1901451781.ap-northeast-1.elb.amazonaws.com/sg/settings/themes/*"
+      ],
+      "js": [
+        "content.js",
+        "lib/prism.min.js",
+        "lib/prism-line-numbers.min.js",
+        "lib/prism-normalize-whitespace.min.js"
+      ],
+      "css": [
+        "styles.css",
+        "lib/prism-okaidia.min.css",
+        "lib/prism-line-numbers.min.css"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}

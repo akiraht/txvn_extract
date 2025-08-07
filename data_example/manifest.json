@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Test Layout Dev - Akira",
+  "version": "1.1.7",
+  "description": "Tools test text/images, add text for module PR page",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "declarativeContent",
+    "scripting"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/icon48.png", "images/replace.png", "images/logo_w.png", "images/data/*.jpg"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "host_permissions": [
+    "https://fe-alb-qa-815232880.ap-northeast-1.elb.amazonaws.com/sg/settings/themes/*",
+    "http://127.0.0.1:5500/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["func.js", "content.js"],
+      "css": [
+        "styles.css",
+        "headFoot.css"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  }
+}

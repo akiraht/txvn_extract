@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.sg-body {width: 680px; background-color: #333; color: #fff; margin: 0; display: flex; flex-wrap: wrap;}
+.sg-body * {font-family: "Roboto", sans-serif; font-size: 14px;}
+.sg-header {display: flex; width: 100%;; gap: 12px; align-items: center; font-size: 18px; font-weight: bold; padding: 16px 12px; background-color: #666;}
+.sg-header img {width: 32px; aspect-ratio: 1;}
+.sg-main {padding: 12px; width: 315px;}
+.sg-main + .sg-main {border-left: solid 1px #666;}
+.sg-main h2 {text-align: center; font-size: 16px; color: orange; margin: 0; padding: 12px 0; border-bottom: solid 1px #666;}
+.sg-list-action {list-style: none; padding: 16px 12px; margin: 0; border-bottom: solid 1px #ccc;}
+.sg-block, .sg-block > div {display: flex; gap: 12px; flex-wrap: wrap;}
+.sg-block:not(:first-child) {padding-top: 12px;}
+.sg-block:not(:last-child) {padding-bottom: 12px; border-bottom: solid 1px #ccc;}
+.sg-block > div {width: 100%;}
+.sg-block h3 {font-weight: normal; margin: 0; color: greenyellow;}
+.sg-body .btn {cursor: pointer; padding: 5px; line-height: 1; flex: 1 1 auto; width: calc(50% - 6px);}
+.sg-body .btn:not(.btnText).--on {background-color: green;}
+.sg-body .btn.btnText:after {font-size: 80%;}
+.sg-body .btn#checkMaxText:after, .sg-body .btn#moduleAddTextAll:after {content: " (DUMMY)";}
+.sg-body .btn#checkMaxText.--on:after, .sg-body .btn#moduleAddTextAll.--on:after {content: " (ののののの)";}
+.sg-body .btn#checkMinText:after, .sg-body .btn#moduleAddTextOne:after {content: " (A)";}
+.sg-body .btn#checkMinText.--on:after, .sg-body .btn#moduleAddTextOne.--on:after {content: " (あ)";}
+.sg-body .btn#checkRandomText:after, .btn#moduleAddTextRandom:after {content: " (EN)";}
+.sg-body .btn#checkRandomText.--on:after, .btn#moduleAddTextRandom.--on:after {content: " (JP)";}
+/* .data-moduleCheck, .data-editableCheck, .data-tagCheck,
+.img-content-sg-c-module,
+.sg-module-movie-1,
+.sg-module-map-1 {position: relative; outline: 1px solid red; outline-offset: -1px;} */
+.data-module {position: absolute; top: 0; left: 0; display: flex; gap: 10px; z-index: 1001;}
+.data-module > span {color: #fff; padding: 10px 15px; border-radius: 0 0 5px 5px; font-size: 18px;}
+.data-module > span.check-success {background-color: rgba(0, 183, 30, 0.7);}
+.data-module > span.check-error {background-color: rgba(255, 0, 0, 0.7);}
+.data-module__bg {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: solid 1px #ff0000; border-radius: 5px; z-index: 1000;}
+span[class^="sg-check"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 3px 10px;
+  background-color: green;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: normal;
+  text-transform: lowercase;
+  z-index: 999;
+  -webkit-text-stroke-color: transparent;
+  transition: 0.15s;
+  opacity: 0;
+}
+span[class^="sg-check"].showAll {
+  opacity: 1 !important;
+}
+span[class^="sg-check"]:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 4px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid green;
+}
+.data-moduleCheck:hover span, .data-editableCheck:hover span, .data-tagCheck:hover span, .img-content-sg-c-module:hover span,
+.sg-module-movie-1:hover span, .sg-module-map-1:hover span {opacity: 1;}
+.sg-body button#checkDataEditableAll {background-color: #666; pointer-events: none;}
+.sg-body div:has(> #checkDataEditable.--on) + button#checkDataEditableAll, div:has(> #checkTagHTML.--on) + button#checkDataEditableAll {background-color: #fff; pointer-events: all;}
+.sg-body label[for="numInputs"] {width: 100%;}
+#colorInputsContainer {display: flex; flex-direction: column; gap: 8px; width: 100%;}
+#colorInputsContainer label input {width: 75px; margin-left: 8px;}
+.sg-body textarea#inputColor {width: 100%; height: 250px;}
+#getCssFile {max-width: 120px; margin-left: auto;}
+.sg-urlMap {margin-left: auto; width: 50%; display: flex;}
+.sg-urlMap input {height: 18px; padding: 5px 10px; border-radius: 3px; border: none; width: 100%;}
+
+.extLoop-wrap {position: relative;}
+.extLoop-wrap:before {content: ""; position: absolute; top: -2px; left: -2px; width: 100%; height: 100%; border: solid 2px rgba(255, 0, 0, 0.3); pointer-events: none; z-index: 999;}
+.extBtn-add, .extBtn-sub,
+.extBtn-addRow, .extBtn-subRow,
+.extBtn-addCol, .extBtn-subCol {
+  width: 28px;
+  aspect-ratio: 1;
+  border-radius: 5px;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  transform: translateX(calc(100% + 4px));
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6) inset;
+  transition: 0.25s;
+  z-index: 999;
+}
+.extBtn-add:hover, .extBtn-sub:hover,
+.extBtn-addRow:hover, .extBtn-subRow:hover,
+.extBtn-addCol:hover, .extBtn-subCol:hover {box-shadow: 0 0 5px rgba(0, 0, 0, 0.8) inset;}
+.extBtn-add, .extBtn-addRow, .extBtn-addCol {
+  top: 0;
+  background: linear-gradient(#fff, #fff) no-repeat center center / 1px 10px,
+              linear-gradient(#fff, #fff) no-repeat center center / 10px 1px,
+              #0099ff;
+}
+.extBtn-sub, .extBtn-subRow, .extBtn-subCol {
+  top: 36px;
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)) no-repeat center center/1px 10px, 
+              linear-gradient(#fff, #fff) no-repeat center center/10px 1px,
+              #ff5d5d;
+}
+.extBtn-add:disabled, .extBtn-sub:disabled,
+.extBtn-addRow:disabled, .extBtn-subRow:disabled,
+.extBtn-addCol:disabled, .extBtn-subCol:disabled {opacity: 0.4; pointer-events: none;}
+.extBtn-addCol, .extBtn-subCol {transform: translateY(calc(-100% - 4px));}
+.extBtn-addRow {top: 28px;}
+.extBtn-subRow {top: 64px;}
+.extBtn-addCol {right: 36px;}
+.extBtn-subCol {top: 0;}
+.extLoop-wrap__text {position: absolute; top: -32px; right: -32px; width: 200px; height: 200px; pointer-events: none;}
+.extLoop-wrap__text:before, .extLoop-wrap__text:after {
+  position: absolute;
+  color: #ff0000;
+  pointer-events: none;
+}
+.extLoop-wrap__text:before {
+  content: "Add Row:";
+  top: 0 !important;
+  line-height: 28px;
+  left: auto;
+  right: 108px;
+
+}
+.extLoop-wrap__text:after {
+  content: "Col";
+  top: 36px;
+  right: 2px;
+}

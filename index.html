@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Converter</title>
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style/new_style.css">
+</head>
+
+<body class="akiraSg color00">
+  <div class="logo">
+    <h1>HTML Convert Editable: v2.0.1</h1>
+  </div>
+  <div id="akiraExt">
+    <div class="inp-gr doc-body">
+      <div class="topControl">
+        <div class="pc-files">
+          <div class="akiraExt-input">
+            <input type="file" accept=".html" id="fileInput">
+            <span id="fileNameSpan">PC file html</span>
+          </div>
+        </div>
+        <div class="sp-files">
+          <div class="akiraExt-input">
+            <input type="file" accept=".html" id="fileInput_sp">
+            <span id="fileNameSpan_sp">SP file html</span>
+          </div>
+        </div>
+        <div class="akiraExt-dataplace">
+          <select name="dataPlaceId" id="dataPlaceId">
+            <option value="" disabled selected>Data placeholde list</option>
+            <optgroup label="[Easier]">
+              <option value="./data/easier_regular_new07.json">- Regular Cool: new (259)</option>
+              <option value="./data/easier_module_table.json">- Module Table: new (9)</option>
+              <option value="./data/easier_visualizer.json">- Visualize (616)</option>
+              <option value="./data/easier_classic.json">- Classical Merry (632)</option>
+              <option value="./data/easier_new_theme_1_3_6.json">- New module theme #1, #3, #6</option>
+              <option value="./data/data_new.json">- New module (#5-4: watercolor)</option>
+              <option value="./data/data_new_ptree.json">- New module (#4-4: pure tree)</option>
+              <option value="./data/data_new_yuru.json">- New module (#2-4: yuru)</option>
+              <option value="./data/data_ea_marumi.json">- Marumi (631)</option>
+              <option value="./data/easier_sansui.json">- Sansui (749)</option>
+              <option value="./data/data2.json">- Module from Itszai2 (190): For theme #1-3, ... #6-3</option>
+              <option value="./data/data1.json">- Design (23): For theme #1-1, #1-2 ... #6-1, #6-2</option>
+            </optgroup>
+            <optgroup label="[Itszai2]">
+              <option value="./data/itszai_marumi.json">- Marumi</option>
+              <option value="./data/itszai_machiiro.json">- Machi Iro</option>
+              <option value="./data/data3.json">- Sansui/Colorfull (181)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="akiraExt-num">
+          <input type="number" id="colorCountInput">
+        </div>
+        <div class="btnControl">
+          <div class="akiraExt-btn --r">
+            <button id="extract-html" type="button"></button>
+          </div>
+          <div class="akiraExt-btn --data d-none">
+            <button id="reData" title="Filter Module"></button>
+          </div>
+          <div class="akiraExt-btn --c">
+            <button id="clean-html"></button>
+          </div>
+          <label class="onOffControl">
+            <input type="checkbox" id="onOff">
+            Remove On/Off
+          </label>
+        </div>
+      </div>
+      <div class="akiraExt-dataColor">
+        <label><input type="checkbox" id="colorCheckbox">User data variables</label>
+        <textarea id="colorCountData" disabled></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="toggleEditor">
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    revert
+  </div>
+  <div id="blockDocument">
+    <div class="doc-body">
+      <div class="doc-body__inner">
+        <div class="doc-body__inner-col">
+          <textarea id="html-input" rows="10" cols="50"></textarea>
+        </div>
+        <div class="doc-body__inner-col">
+          <button class="copyBtn-htmlEditor" id="copyEditableHtml">HTML Copy</button>
+          <pre id="html-output"><code class="language-html line-numbers"></code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="doc-data">
+      <div id="placeholderList"></div>
+      <div class="variablesBlock position-relative">
+        <div id="variablesList"></div>
+        <button class="copyBtn-css" id="copyVariablesBtn">CSS Variables</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="blockReturn">
+    <div class="blockReturn__total">
+      Total module <span class="txt-error"></span>
+    </div>
+    <div class="blockReturn__content">
+      <div class="blockReturn__l">
+        <div class="blockReturn-head">
+          <div style="display: flex; padding: 10px;">PC module<p id="ttModule_pc"></p></div>
+          <div class="inputFile_sty">
+            <span>Add data files css for PC</span>
+            <input type="file" accept=".css" id="cssFiles" multiple>
+          </div>
+        </div>
+        <div class="htmlDisplay"></div>
+      </div>
+      <div class="blockReturn__r">
+        <div class="blockReturn-head">
+          <div style="display: flex; padding: 10px;">SP module<p id="ttModule_sp"></p></div>
+          <div class="inputFile_sty">
+            <span>Add data files css for SP</span>
+            <input type="file" accept=".css" id="cssFiles_sp" multiple>
+          </div>
+        </div>
+        <div class="htmlDisplay_sp"></div>
+      </div>
+    </div>
+    <div class="blockReturn__module d-none"></div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
+
+<script src="./func/block.js"></script>
+<script src="./func/editable.js"></script>
+<script src="./func/editor.js"></script>
+<script src="./func/reEditable.js"></script>
+<script src="./main.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.js-accordion').forEach(accordion => {
+    const btnClick = accordion.querySelector(".gList__tit");
+    btnClick.addEventListener('click', () => {
+      if (!accordion.classList.contains('active')) {
+        accordion.classList.add('active');
+      }
+      else {
+        accordion.classList.remove('active');
+        btnClick.addEventListener('transitionend', function () {
+          accordion.classList.remove('active');
+        }, {
+          once: true
+        });
+      }
+    });
+  });
+
+  const select = document.getElementById("dataPlaceId");
+  const placeholderList = document.getElementById("placeholderList");
+
+  async function loadAndRender(file) {
+    try {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error("Failed to fetch JSON");
+
+      const data = await response.json();
+      renderPlaceholderList(data);
+    } catch (error) {
+      console.error("Error loading JSON:", error);
+      placeholderList.innerHTML = `<div style="color:red">Error loading data</div>`;
+    }
+  }
+
+  function renderPlaceholderList(data) {
+    if (!placeholderList) return;
+
+    placeholderList.innerHTML = ""; // Clear existing
+
+    const container = document.createElement("div");
+    container.classList.add("listID-cont");
+
+    const title = document.createElement("div");
+    title.classList.add('listID-title');
+    title.innerText = "Placeholde ID list data";
+    placeholderList.appendChild(title);
+
+    const header = document.createElement("div");
+    header.classList.add('listID-tb', '--head');
+    header.innerHTML = `
+      <div>ID</div>
+      <div>Label</div>
+      <div>Hint</div>
+    `;
+    container.appendChild(header);
+
+    Object.entries(data).forEach(([key, { label, hint }]) => {
+      const item = document.createElement("div");
+      item.classList.add('listID-tb');
+      item.innerHTML = `
+        <div>${key}</div>
+        <div>${label || ""}</div>
+        <div>${hint || ""}</div>
+      `;
+      container.appendChild(item);
+    });
+    placeholderList.appendChild(container);
+  }
+
+  if (select.value) { loadAndRender(select.value); }
+
+  select.addEventListener("change", function () {
+    const file = this.value;
+    if (!file) return;
+    loadAndRender(file);
+  });
+
+  const colorCheckbox = document.getElementById("colorCheckbox");
+  const colorCountInput = document.getElementById("colorCountInput");
+  const colorCountData = document.getElementById("colorCountData");
+
+  if (colorCountInput && colorCountData && colorCheckbox) {
+    colorCountInput.addEventListener("input", autoUpdateCSSPreview);
+    colorCountData.addEventListener("input", autoUpdateCSSPreview);
+    colorCheckbox.addEventListener("change", autoUpdateCSSPreview);
+
+    autoUpdateCSSPreview();
+  }
+});
+window.addEventListener("DOMContentLoaded", autoUpdateCSSPreview);
+function getCSSVariablesOnly(colorCount) {
+  let cssVariables = '';
+
+  if (typeof colorCount === "number") {
+    for (let i = 1; i <= colorCount; i++) {
+      cssVariables += `  --color${i.toString().padStart(2, '0')}: color-${i};\n`;
+    }
+  } else if (typeof colorCount === "string") {
+    const lines = colorCount.split('\n');
+    lines.forEach(line => {
+      const match = line.trim().match(/^--([a-zA-Z0-9_\-]+):/);
+      if (match) {
+        const variableName = match[1];
+        cssVariables += `  --${variableName}: color_${variableName};\n`;
+      }
+    });
+  }
+
+  return cssVariables;
+}
+function displayCSSVariablesOnly(colorCount) {
+  const codeBlock = getCSSVariablesOnly(colorCount);
+  const pre = document.createElement("pre");
+  const code = document.createElement("code");
+
+  code.className = "language-css";
+  code.textContent = codeBlock;
+
+  pre.appendChild(code);
+
+  const variablesList = document.getElementById("variablesList");
+  variablesList.innerHTML = '';
+  variablesList.appendChild(pre);
+
+  Prism.highlightElement(code);
+}
+function autoUpdateCSSPreview() {
+  const colorCheckbox = document.getElementById("colorCheckbox");
+  const colorCountInput = document.getElementById("colorCountInput");
+  const colorCountData = document.getElementById("colorCountData");
+
+  let colorCount;
+  if (colorCheckbox.checked) {
+    const data = colorCountData.value.trim();
+    if (!data) return;
+    colorCount = data;
+  } else {
+    const num = parseInt(colorCountInput.value, 10);
+    if (isNaN(num) || num <= 0) return;
+    colorCount = num;
+  }
+
+  displayCSSVariablesOnly(colorCount);
+}
+
+document.getElementById("copyVariablesBtn").addEventListener("click", function () {
+  copyTextFromElement("#variablesList", this);
+});
+document.getElementById("copyEditableHtml").addEventListener("click", function () {
+  copyTextFromElement("#html-output code", this);
+});
+function copyTextFromElement(selector, button) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+
+  const textToCopy = el.textContent;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    if (button) {
+      button.classList.add('loading');
+      setTimeout(() => button.classList.remove('loading'), 300);
+    }
+  });
+}
+
+</script>
+</html>

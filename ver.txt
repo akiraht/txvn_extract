@@ -1,0 +1,20 @@
+ver 3.0
+update data-skip for image
+
+ver 3.1
+update remove <span> on data-sample
+
+ver 3.2
+update data-placeholder-id {22}
+
+ver 3.3
+update loop data table
+
+ver 3.4
+update data placeholder list
+
+ver 3.4.1
+update btn add auto + ext chrome
+
+ver 3.4.4
+update loop V2 + codition option
