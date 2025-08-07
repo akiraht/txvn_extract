@@ -6,8 +6,8 @@ export default function middleware(request) {
     if (scheme === 'Basic') {
       const decoded = atob(encoded);
       const [user, pass] = decoded.split(':');
-      if (user === 'admin' && pass === '123456') {
-        return; // Cho phép truy cập
+      if (user === '@txvn.co.jp' && pass === '12345@okA') {
+        return;
       }
     }
   }
