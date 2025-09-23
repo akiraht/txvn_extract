@@ -31,6 +31,7 @@ const errorTotal = document.querySelector(".txt-error");
 const inpGr = document.querySelectorAll(".inp-gr input:not([type='checkbox'])");
 const onOffControl = document.querySelector(".onOffControl");
 const onOffCheck = document.getElementById('onOff');
+const inlineToggleCheck = document.getElementById('inlineToggle');
 const toggleRevertBTN = document.querySelector('.toggleEditor');
 errorTotal.innerText = '';
 
@@ -46,6 +47,7 @@ document.getElementById("extract-html").addEventListener("click", async function
   blockReturnModule.innerHTML = '';
   blockReturnContent.classList.remove('d-none');
   onOffCheck.checked = false;
+  inlineToggleCheck.checked = false;
   toggleRevertBTN.classList.add('d-none');
 
   const colorCheck = document.getElementById("colorCheckbox");
@@ -78,6 +80,7 @@ document.getElementById("extract-html").addEventListener("click", async function
   await handleFileProcessing(document.getElementById("fileInput_sp"), document.querySelector(".htmlDisplay_sp"), colorCount, false);
 
   setTimeout(initToggleBlockReplace, 0);
+  setTimeout(initToggleInlineStyle, 0);
 
   const pcModuleNum = countBlocks(document.querySelector(".htmlDisplay"));
   const spModuleNum = countBlocks(document.querySelector(".htmlDisplay_sp"));
@@ -128,6 +131,7 @@ document.getElementById("reData").addEventListener("click", function () {
   const spModules = Array.from(spBlocks).map(block => block.getAttribute('data-module'));
 
   setTimeout(initToggleBlockReplace, 0);
+  setTimeout(initToggleInlineStyle, 0);
 
   pcModules.forEach(pcModule => {
     if (spModules.includes(pcModule)) {
@@ -504,6 +508,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   colorCountData.disabled = !isChecked;
 
   initToggleBlockReplace();
+  initToggleInlineStyle();
 });
 
 function addCssContentToBlock(files, displayTarget) {
@@ -557,6 +562,44 @@ function initToggleBlockReplace() {
       
       if (onOffCheck.checked) {
         let modified = code.textContent.replace(/<block/g, '<div').replace(/<\/block>/g, '</div>').replace(/\s*data-display="[^"]*"/g, '');
+        code.textContent = modified;
+      } else {
+        code.textContent = code.getAttribute('data-original');
+      }
+      Prism.highlightElement(code);
+    });
+  });
+}
+
+function stripHtml(html) {
+  const temp = document.createElement("div");
+
+  html = html.replace(/<br\s*\/?>/gi, "\\n");
+  temp.innerHTML = html;
+  let text = temp.textContent || temp.innerText || "";
+
+  return text.replace(/\r?\n/g, "\\n");
+}
+
+function initToggleInlineStyle() {
+  const codeBlocks = document.querySelectorAll('pre.language-html code');
+
+  if (codeBlocks.length === 0) return;
+
+  codeBlocks.forEach(code => {
+    if (!code.hasAttribute('data-original')) {
+      code.setAttribute('data-original', code.textContent);
+    }
+  });
+
+  inlineToggleCheck.addEventListener('change', () => {
+    codeBlocks.forEach(code => {
+      const original = code.getAttribute('data-original');
+      if (inlineToggleCheck.checked) {
+        let modified = original.replace(
+          /(data-sample=")([^"]*)(")/g,
+          (match, p1, p2, p3) => p1 + stripHtml(p2) + p3
+        );
         code.textContent = modified;
       } else {
         code.textContent = code.getAttribute('data-original');
