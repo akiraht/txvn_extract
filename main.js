@@ -600,6 +600,7 @@ function initToggleInlineStyle() {
           /(data-sample=")([^"]*)(")/g,
           (match, p1, p2, p3) => p1 + stripHtml(p2) + p3
         );
+        modified = modified.replace(/<block/g, '<div').replace(/<\/block>/g, '</div>').replace(/\s*data-display="[^"]*"/g, '');
         code.textContent = modified;
       } else {
         code.textContent = code.getAttribute('data-original');
