@@ -2,7 +2,7 @@ const attributesToCopy = {
   "headline": ["class", "max", "data-sample", "data-label", "data-hint", "data-monitor", "data-display"],
   "image": ["class", "data-aspect", "data-readonly", "data-monitor", "data-display", "max"],
   "button": ["class", "max", "data-sample", "data-label", "data-hint", "data-empty"],
-  "text": ["class", "max", "data-sample", "data-label", "data-hint", "data-monitor", "data-display"],
+  "text": ["class", "max", "data-sample", "data-label", "data-hint", "data-monitor", "data-display", "data-faq-question", "data-faq-answer"],
   "iframe": ["class", "max", "data-sample", "data-label", "data-hint"],
   "job": ["class", "data-type", "data-sample-thumbnail", "data-sample-name", "data-sample-description"],
   "recruitment": ["class", "data-type", "data-sample-thumbnail", "data-sample-title", "data-sample-type", "data-sample-location", "data-sample-salary", "data-sample-salaryType", "data-sample-companyName"],
