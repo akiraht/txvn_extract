@@ -1,7 +1,7 @@
 const attributesToCopy = {
   "headline": ["class", "max", "data-sample", "data-label", "data-hint", "data-monitor", "data-display"],
   "image": ["class", "data-aspect", "data-readonly", "data-monitor", "data-display", "max"],
-  "button": ["class", "max", "data-sample", "data-label", "data-hint", "data-empty"],
+  "button": ["class", "max", "data-sample", "data-label", "data-hint", "data-empty", "data-type", "data-hidden-label"],
   "text": ["class", "max", "data-sample", "data-label", "data-hint", "data-monitor", "data-display", "data-faq-question", "data-faq-answer"],
   "iframe": ["class", "max", "data-sample", "data-label", "data-hint"],
   "job": ["class", "data-type", "data-sample-thumbnail", "data-sample-name", "data-sample-description"],
@@ -520,7 +520,7 @@ function replaceElements(blockElement) {
         const editableElement = document.createElement("editable");
         const buttonId = "sg-module-button-" + (++buttonCount);
         editableElement.setAttribute("id", buttonId);
-        editableElement.setAttribute("data-type", "button");
+        // editableElement.setAttribute("data-type", "button");
         const placeholderText = dataPlaceholder(btnElement.innerHTML);
         editableElement.setAttribute("data-sample", placeholderText);
         if (btnElement.getAttribute("data-empty") === "true" || btnElement.hasAttribute("empty")) {
