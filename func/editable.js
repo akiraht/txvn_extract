@@ -519,7 +519,13 @@ function replaceElements(blockElement) {
       if (btnElement) {
         const editableElement = document.createElement("editable");
         const buttonId = "sg-module-button-" + (++buttonCount);
-        editableElement.setAttribute("id", buttonId);
+
+        if (btnElement.getAttribute("data-type") === "button") {
+          editableElement.setAttribute("id", buttonId);
+          labelElement.setAttribute("htmlfor", buttonId);
+        } else {
+          labelElement.removeAttribute("htmlfor");
+        }
         // editableElement.setAttribute("data-type", "button");
         const placeholderText = dataPlaceholder(btnElement.innerHTML);
         editableElement.setAttribute("data-sample", placeholderText);
@@ -531,7 +537,6 @@ function replaceElements(blockElement) {
         
         addAttributes(editableElement, btnElement, attributesToCopy["button"]);
         btnElement.parentNode.replaceChild(editableElement, btnElement);
-        labelElement.setAttribute("htmlfor", buttonId);
       }
     } else {
       labelElement.removeAttribute("htmlfor");
